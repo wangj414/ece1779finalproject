@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{name}}</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <style type="text/css">
+    .animate
+{
+	transition: all 0.1s;
+	-webkit-transition: all 0.1s;
+}
+
+.action-button
+{
+	position: relative;
+	padding: 10px 40px;
+  margin: 0px 10px 10px 0px;
+  float: left;
+	border-radius: 10px;
+	font-family: 'Pacifico', cursive;
+	font-size: 25px;
+	color: #FFF;
+	text-decoration: none;
+}
+
+.blue
+{
+	background-color: #3498DB;
+	border-bottom: 5px solid #2980B9;
+	text-shadow: 0px -2px #2980B9;
+}
+
+.red
+{
+	background-color: #E74C3C;
+	border-bottom: 5px solid #BD3E31;
+	text-shadow: 0px -2px #BD3E31;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <img src={{path}} class="img-thumbnail" alt="Cinque Terre" style="width:400px;height:400px">
+    {% if liked == False %}
+    <form action='{{url_for('favorite')}}' method='post'>
+    <button type="submit" class="action-button shadow animate red" name="button1" value="{{path}}">Favorite</button>
+</form>
+    {% endif %}
+    {% if liked == True %}
+    <form action='{{url_for('disfavorite')}}' method='post'>
+    <button type="submit" class="action-button shadow animate blue" name="button2" value="{{path}}">Disfavorite</button>
+</form>
+    {% endif %}
+</div>
+</body>
+</html>

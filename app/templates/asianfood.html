@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Yammme</title>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="navbar-header">
+        <a href='#' class="navbar-brand">Yammme</a>
+      </div>
+      <div class="nav navbar-nav">
+        <li><a href='tea'>Bubble Tea</a></li>
+        <li><a href='dessert'>Dessert</a></li>
+        <li><a href='asian'>Asian Food</a></li>
+        <li><a href='french'>French Cuisine</a></li>
+          <li><a href='favorites'>Favorites</a></li>
+          <li><a href='index'>Home</a></li>
+      </div>
+      <!--<form action="{{url_for('sign_up_page')}}" method="post" class="form-inline">-->
+        <!--<button class="btn btn-primary" type="submit" style="float: right">SignUp</button>-->
+      <!--</form>-->
+      <!--<form action="{{url_for('login_page')}}" method="post" class="form-inline">-->
+        <!--<button class="btn btn-default" type="submit" style="float: right">Login</button>-->
+    <!--</form>-->
+        <!--<form action="{{url_for('logout')}}" method="post" class="form-inline">-->
+        <!--<button class="btn btn-outline-secondary" type="submit" style="float: right">Logout</button>-->
+    <!--</form>-->
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="signup">Sign Up</a></li>
+            <li><a href="login">Login</a></li>
+            <li><a href="logout">Logout</a></li>
+            <li><a href="#"> </a></li>
+        </ul>
+    </nav>
+<div class="container-fluid">
+  <h1></h1>
+  <p>{% if signUpMsg != null %}
+      {% for msg in signUpMsg %}
+      <p> {{msg}} </p>
+      {% endfor %}
+    {% endif %}
+
+    {% if login_err_msg != null %}
+      {% for msg in login_err_msg %}
+      <p> {{msg}} </p>
+      {% endfor %}
+    {% endif %}
+
+    {% if err_msg != null %}
+      {% for msg in err_msg %}
+      <p> {{msg}} </p>
+      {% endfor %}
+    {% endif %}</p>
+</div>
+</body>
