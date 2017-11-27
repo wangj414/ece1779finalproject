@@ -76,8 +76,7 @@
 
 
 <!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
+<a class="btn" data-toggle="modal" href="#myModal">Leave your comment</a>
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -88,8 +87,8 @@
       <div class="modal-body">
         <p>
             <form action='{{url_for('review')}}' method='post'>
-                 <input type="text" name="review" placeholder="Leave your comment here"><br>
-                 <input type="submit" value="Submit">
+                 <input type="text" name="review" placeholder="Leave your comment here" style="width:400px;height:400px"><br>
+                 <button type="submit" value={{path}}>Submit</button>
             </form>
         </p>
       </div>
