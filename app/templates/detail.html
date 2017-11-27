@@ -26,6 +26,20 @@
 
     <style type="text/css">
 
+    .review-block-title{
+	font-size:15px;
+	font-weight:700;
+	margin-bottom:10px;
+}
+
+    .review-block{
+	background-color:#FAFAFA;
+	border:1px solid #EFEFEF;
+	padding:15px;
+	border-radius:3px;
+	margin-bottom:15px;
+}
+
     .background {
     background-color: lightgray;
 }
@@ -113,9 +127,10 @@
 <div class="container">
     {% if reviews != null %}
     {% for i in range(len) %}
-    <div class="row">
-      <p> <div class="col-lg-12 background">
-        <figcaption class="text">From user {{names[i]}}: {{reviews[i]}}</figcaption>
+    <div class="review-block-title">User {{names[i]}}:</div>
+    <div class="row review-block">
+      <p> <div class="col-lg-12">
+        <figcaption class="text">{{reviews[i]}}</figcaption>
         </div> </p>
         </div>
       {% endfor %}

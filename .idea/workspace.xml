@@ -3,14 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c8902866-e2ae-4766-bc30-36559fd6c0a9" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/main.py" afterPath="$PROJECT_DIR$/app/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/asianfood.html" afterPath="$PROJECT_DIR$/app/templates/asianfood.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/bubbletea.html" afterPath="$PROJECT_DIR$/app/templates/bubbletea.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/dessert.html" afterPath="$PROJECT_DIR$/app/templates/dessert.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/detail.html" afterPath="$PROJECT_DIR$/app/templates/detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/favorites.html" afterPath="$PROJECT_DIR$/app/templates/favorites.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/french.html" afterPath="$PROJECT_DIR$/app/templates/french.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/index.html" afterPath="$PROJECT_DIR$/app/templates/index.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -88,8 +81,8 @@
       <file leaf-file-name="detail.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/templates/detail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="120" lean-forward="true" selection-start-line="5" selection-start-column="120" selection-end-line="5" selection-end-column="120" />
+            <state relative-caret-position="177">
+              <caret line="79" column="23" lean-forward="true" selection-start-line="79" selection-start-column="23" selection-end-line="79" selection-end-column="23" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -730,8 +723,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/detail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="120" lean-forward="true" selection-start-line="5" selection-start-column="120" selection-end-line="5" selection-end-column="120" />
+        <state relative-caret-position="177">
+          <caret line="79" column="23" lean-forward="true" selection-start-line="79" selection-start-column="23" selection-end-line="79" selection-end-column="23" />
           <folding>
             <element signature="n#style#0;n#img#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
