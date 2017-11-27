@@ -73,11 +73,57 @@ def detail():
 
     temp = response['Item']
     liked = temp['liked']
-    return render_template('detail.html', path=path, liked=liked)
+
+    # Display reviews
+    table0 = get_table('Desserts')
+    response0 = table0.get_item(
+        Key={
+            'path': path,
+        })
+
+    temp = response['Item']
+    reviews = temp['reviews']
+
+    review_list=[]
+    names=[]
+
+    for key,value in reviews.items():
+        names.append(key)
+        review_list.append(value)
+    return render_template('detail.html', path=path, liked=liked, reviews=review_list, names=names, len=len(names))
+
 
 @webapp.route('/detail/review',methods=['POST'])
 def review():
-    return "Review"
+    email = session.pop("email", "")
+    if email == "":
+        return render_template('dessert.html', err_msg=["You have to login to leave comment"])
+    session['email'] = email
+    review=request.form['review']
+    path=request.form['path']
+
+    table = get_table('Desserts')
+    response = table.get_item(
+        Key={
+            'path': path,
+        })
+
+    temp = response['Item']
+    reviews = temp['reviews']
+
+    reviews[email]=review
+
+    response2 = table.update_item(
+        Key={
+            'path': path,
+        },
+        UpdateExpression="set reviews = :a",
+        ExpressionAttributeValues={
+            ':a': reviews
+        },
+        ReturnValues="UPDATED_NEW"
+    )
+    return redirect('/detail?info='+path)
 
 
 @webapp.route('/detail/favorite',methods=['POST'])
