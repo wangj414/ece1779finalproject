@@ -4,13 +4,32 @@
     <meta charset="UTF-8">
     <title>{{name}}</title>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
+
+    <script>
+         $(document).ready(function() {
+    $("#MyModal").modal();
+  });
+    </script>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- this file was missing -->
+<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+
+<!-- this file was moved after the jQuery Datatables library was laoded -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/dataTables.bootstrap.min.js"></script>
+
+
     <style type="text/css">
     .animate
 {
 	transition: all 0.1s;
 	-webkit-transition: all 0.1s;
 }
-
 .action-button
 {
 	position: relative;
@@ -23,14 +42,12 @@
 	color: #FFF;
 	text-decoration: none;
 }
-
 .blue
 {
 	background-color: #3498DB;
 	border-bottom: 5px solid #2980B9;
 	text-shadow: 0px -2px #2980B9;
 }
-
 .red
 {
 	background-color: #E74C3C;
@@ -39,19 +56,48 @@
 }
 </style>
 </head>
+
+
 <body>
 <div class="container">
   <img src={{path}} class="img-thumbnail" alt="Cinque Terre" style="width:400px;height:400px">
     {% if liked == False %}
     <form action='{{url_for('favorite')}}' method='post'>
-    <button type="submit" class="action-button shadow animate red" name="button1" value="{{path}}">Favorite</button>
+    <button type="submit" class="action-button shadow animate red" name="button1" value="{{path}}">Add to favorites</button>
 </form>
     {% endif %}
     {% if liked == True %}
     <form action='{{url_for('disfavorite')}}' method='post'>
-    <button type="submit" class="action-button shadow animate blue" name="button2" value="{{path}}">Disfavorite</button>
+    <button type="submit" class="action-button shadow animate blue" name="button2" value="{{path}}"> Remove from favorites</button>
 </form>
     {% endif %}
 </div>
+
+
+
+<!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <p>
+            <form action='{{url_for('review')}}' method='post'>
+                 <input type="text" name="review" placeholder="Leave your comment here"><br>
+                 <input type="submit" value="Submit">
+            </form>
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
 </body>
 </html>

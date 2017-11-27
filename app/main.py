@@ -75,6 +75,10 @@ def detail():
     liked = temp['liked']
     return render_template('detail.html', path=path, liked=liked)
 
+@webapp.route('/detail/review',methods=['POST'])
+def review():
+    return "Review"
+
 
 @webapp.route('/detail/favorite',methods=['POST'])
 def favorite():
@@ -94,9 +98,9 @@ def favorite():
 
     temp=response['Item']
     favorites = temp['favorites']
-    print(favorites)
+    #print(favorites)
     favorites.append(favorite)
-    print(favorites)
+    #print(favorites)
 
     table0 = get_table('Desserts')
     response0 = table0.update_item(
@@ -132,7 +136,7 @@ def disfavorite():
     if email == "":
         return render_template('favorites.html')
     session['email'] = email
-    print(email)
+    #print(email)
     table = get_table('UserInfo')
 
     response = table.get_item(
@@ -142,9 +146,9 @@ def disfavorite():
 
     temp=response['Item']
     favorites = temp['favorites']
-    print(favorites)
+    #print(favorites)
     favorites.remove(disfavorite)
-    print(favorites)
+    #print(favorites)
 
     table0 = get_table('Desserts')
     response0 = table0.update_item(
@@ -179,7 +183,7 @@ def favorites():
         return render_template('favorites.html')
     session['email']=email
     table = get_table('UserInfo')
-    print(email)
+    #print(email)
     response = table.get_item(
         Key={
             'email': email,
@@ -198,7 +202,7 @@ def favorites():
             })
         temp0=response0['Item']
         fav_names.append(temp0['name']+": "+temp0['description'])
-        print(fav_names)
+        #print(fav_names)
     grid = []
     count = 0
     row = []
@@ -216,11 +220,11 @@ def favorites():
         count += 1
     grid.append(row)
     names.append(name)
-    print(grid)
+    #print(grid)
     len1=len(grid)-1
     len2=len(grid[-1])
-    print(len1)
-    print(len2)
+    #print(len1)
+    #print(len2)
     return render_template('favorites.html', description=names ,grid=grid, len1=len1, len2=len2)
 
 
