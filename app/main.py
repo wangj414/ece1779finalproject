@@ -71,16 +71,7 @@ def detail():
             'path': path,
         })
 
-    temp = response['Item']
-    liked = temp['liked']
-
     # Display reviews
-    table0 = get_table('Desserts')
-    response0 = table0.get_item(
-        Key={
-            'path': path,
-        })
-
     temp = response['Item']
     reviews = temp['reviews']
 
@@ -90,7 +81,22 @@ def detail():
     for key,value in reviews.items():
         names.append(key)
         review_list.append(value)
-    return render_template('detail.html', path=path, liked=liked, reviews=review_list, names=names, len=len(names))
+
+    temp = response['Item']
+    description = temp['longdescription']
+
+    email = session.pop("email", "")
+    if email == "":
+        return render_template('detail.html', path=path, liked=False, reviews=review_list, names=names, len=len(names),
+                               description=description)
+    session['email'] = email
+    temp = response['Item']
+    likes = temp['likes']
+    if likes=={}:
+        liked=False
+    else:
+        liked = likes[email]
+    return render_template('detail.html', path=path, liked=liked, reviews=review_list, names=names, len=len(names), description=description)
 
 
 @webapp.route('/detail/review',methods=['POST'])
@@ -129,12 +135,12 @@ def review():
 @webapp.route('/detail/favorite',methods=['POST'])
 def favorite():
     favorite = request.form['button1']
-    #print(favorite)
     email = session.pop("email", "")
     if email == "":
-        return render_template('favorites.html')
+        return render_template('favorites.html', err_msg=["You have to login to add favorites"])
     session['email'] = email
     print(email)
+
     table = get_table('UserInfo')
 
     response = table.get_item(
@@ -144,21 +150,7 @@ def favorite():
 
     temp=response['Item']
     favorites = temp['favorites']
-    #print(favorites)
     favorites.append(favorite)
-    #print(favorites)
-
-    table0 = get_table('Desserts')
-    response0 = table0.update_item(
-        Key={
-            'path': favorite,
-        },
-        UpdateExpression="set liked = :a",
-        ExpressionAttributeValues={
-            ':a': True
-        },
-        ReturnValues="UPDATED_NEW"
-    )
 
     response2 = table.update_item(
         Key={
@@ -170,6 +162,30 @@ def favorite():
         },
         ReturnValues="UPDATED_NEW"
     )
+
+
+
+    table0 = get_table('Desserts')
+    response0 = table0.get_item(
+        Key={
+            'path': favorite,
+        })
+    temp0 = response0['Item']
+    likes = temp0['likes']
+    likes[email]=True
+
+    response1 = table0.update_item(
+        Key={
+            'path': favorite,
+        },
+        UpdateExpression="set likes = :a",
+        ExpressionAttributeValues={
+            ':a': likes
+        },
+        ReturnValues="UPDATED_NEW"
+    )
+
+
     return redirect(url_for('favorites'))
 
 
@@ -177,12 +193,10 @@ def favorite():
 @webapp.route('/detail/disfavorite',methods=['POST'])
 def disfavorite():
     disfavorite = request.form['button2']
-    #print(favorite)
     email = session.pop("email", "")
     if email == "":
-        return render_template('favorites.html')
+        return render_template('favorites.html', err_msg=["You have to login to remove favorites"])
     session['email'] = email
-    #print(email)
     table = get_table('UserInfo')
 
     response = table.get_item(
@@ -192,21 +206,7 @@ def disfavorite():
 
     temp=response['Item']
     favorites = temp['favorites']
-    #print(favorites)
     favorites.remove(disfavorite)
-    #print(favorites)
-
-    table0 = get_table('Desserts')
-    response0 = table0.update_item(
-        Key={
-            'path': disfavorite,
-        },
-        UpdateExpression="set liked = :a",
-        ExpressionAttributeValues={
-            ':a': False
-        },
-        ReturnValues="UPDATED_NEW"
-    )
 
     response2 = table.update_item(
         Key={
@@ -218,6 +218,29 @@ def disfavorite():
         },
         ReturnValues="UPDATED_NEW"
     )
+
+
+
+    table0 = get_table('Desserts')
+    response0 = table0.get_item(
+        Key={
+            'path': disfavorite,
+        })
+    temp0 = response0['Item']
+    likes = temp0['likes']
+    likes[email] = False
+
+    response1 = table0.update_item(
+        Key={
+            'path': disfavorite,
+        },
+        UpdateExpression="set likes = :a",
+        ExpressionAttributeValues={
+            ':a': likes
+        },
+        ReturnValues="UPDATED_NEW"
+    )
+
     return redirect(url_for('favorites'))
 
 

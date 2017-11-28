@@ -26,6 +26,12 @@
 
     <style type="text/css">
 
+    .describe{
+
+         font-size: 150%;
+         font-family: 'Pacifico', cursive;
+    }
+
     .review-block-title{
 	font-size:15px;
 	font-weight:700;
@@ -55,7 +61,7 @@
   margin: 0px 10px 10px 0px;
   float: left;
 	border-radius: 10px;
-	font-family: 'Pacifico', cursive;
+	font-family: Sans-serif;
 	font-size: 25px;
 	color: #FFF;
 	text-decoration: none;
@@ -77,8 +83,19 @@
 
 
 <body>
+
+
 <div class="container">
+    <div class="row">
+        <div class="col-lg-6">
   <img src={{path}} class="img-thumbnail" alt="Cinque Terre" style="width:400px;height:400px">
+    </div>
+    <div class="col-lg-6">
+  <figcaption class="text describe">{{description}}</figcaption>
+    </div>
+    </div>
+
+
     {% if liked == False %}
     <form action='{{url_for('favorite')}}' method='post'>
     <button type="submit" class="action-button shadow animate red" name="button1" value="{{path}}">Add to favorites</button>
