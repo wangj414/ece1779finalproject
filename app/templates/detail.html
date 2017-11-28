@@ -26,6 +26,25 @@
 
     <style type="text/css">
 
+    .review-block{
+	background-color:#FAFAFA;
+	border:1px solid #EFEFEF;
+	padding:15px;
+	border-radius:3px;
+	margin-bottom:15px;
+}
+.review-block-name{
+	font-size:12px;
+	margin:10px 0;
+}
+.review-block-date{
+	font-size:12px;
+}
+
+.review-block-description{
+	font-size:13px;
+}
+
     .describe{
 
          font-size: 150%;
@@ -160,16 +179,27 @@ body{
 
 
 <div class="container">
+     <div class="review-block">
     {% if reviews != null %}
     {% for i in range(len) %}
-    <div class="review-block-title">User {{names[i]}}      Time: {{times[i]}}:</div>
-    <div class="row review-block">
-      <p> <div class="col-lg-12">
-        <figcaption class="text">{{reviews[i]}}</figcaption>
-        </div> </p>
-        </div>
+    <!--<div class="review-block-title">User {{names[i]}}      Time: {{times[i]}}:</div>-->
+    <!--<div class="row review-block">-->
+      <!--<p> <div class="col-lg-12">-->
+        <!--<figcaption class="text">{{reviews[i]}}</figcaption>-->
+        <!--</div> </p>-->
+        <!--</div>-->
+    <div class="row">
+						<div class="col-sm-3">
+							<div class="review-block-name"><a href="#">From user: {{names[i]}}</a></div>
+							<div class="review-block-date">{{times[i]}}</div>
+						</div>
+						<div class="col-sm-9">
+							<div class="review-block-description">{{reviews[i]}}</div>
+						</div>
+					</div>
       {% endfor %}
     {% endif %}
+</div>
 </div>
 </body>
 </html>
