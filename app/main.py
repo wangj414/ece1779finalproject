@@ -16,12 +16,40 @@ def get_table(table_name):
 @webapp.route('/',methods=['GET'])
 @webapp.route('/index', methods=['GET'])
 def index():
-	return render_template('index.html')
+    email = session.pop("email", "")
+    if email == "":
+        return render_template('index.html')
+    session['email'] = email
+
+    table = get_table('UserInfo')
+
+    response = table.get_item(
+        Key={
+            'email': email,
+        })
+
+    temp = response['Item']
+    user = temp['name']
+    return render_template('index.html', user=user)
 
 
 @webapp.route('/tea',methods=['GET'])
 def bubble_tea_page():
-    return render_template('bubbletea.html')
+    email = session.pop("email", "")
+    if email == "":
+        return render_template('bubbletea.html')
+    session['email'] = email
+
+    table = get_table('UserInfo')
+
+    response = table.get_item(
+        Key={
+            'email': email,
+        })
+
+    temp = response['Item']
+    user = temp['name']
+    return render_template('bubbletea.html', user=user)
 
 
 @webapp.route('/dessert',methods=['GET'])
@@ -34,7 +62,6 @@ def dessert_page():
     row=[]
     name=[]
     for i in response['Items']:
-        #print(i['path'])
         if count==3:
             description.append(name)
             count=0
@@ -46,19 +73,61 @@ def dessert_page():
         count+=1
     grid.append(row)
     description.append(name)
-    #print(grid)
-    #print(description)
-    return render_template('dessert.html',grid=grid, description=description)
+
+    # To check if logged in
+    email = session.pop("email", "")
+    if email == "":
+        return render_template('dessert.html', grid=grid, description=description)
+    session['email'] = email
+
+    table0 = get_table('UserInfo')
+
+    response0 = table0.get_item(
+        Key={
+            'email': email,
+        })
+
+    temp0 = response0['Item']
+    user = temp0['name']
+    return render_template('dessert.html',grid=grid, description=description, user=user)
 
 
 @webapp.route('/asian',methods=['GET'])
 def asian_page():
-    return render_template('asianfood.html')
+    email = session.pop("email", "")
+    if email == "":
+        return render_template('asianfood.html')
+    session['email'] = email
+
+    table = get_table('UserInfo')
+
+    response = table.get_item(
+        Key={
+            'email': email,
+        })
+
+    temp = response['Item']
+    user = temp['name']
+    return render_template('asianfood.html', user=user)
 
 
 @webapp.route('/french',methods=['GET'])
 def french_page():
-    return render_template('french.html')
+    email = session.pop("email", "")
+    if email == "":
+        return render_template('french.html')
+    session['email'] = email
+
+    table = get_table('UserInfo')
+
+    response = table.get_item(
+        Key={
+            'email': email,
+        })
+
+    temp = response['Item']
+    user = temp['name']
+    return render_template('french.html', user=user)
 
 
 
@@ -90,12 +159,15 @@ def detail():
         return render_template('detail.html', path=path, liked=False, reviews=review_list, names=names, len=len(names),
                                description=description)
     session['email'] = email
+    print(email)
     temp = response['Item']
     likes = temp['likes']
     if likes=={}:
         liked=False
-    else:
+    elif email in likes:
         liked = likes[email]
+    else:
+        liked=False
     return render_template('detail.html', path=path, liked=liked, reviews=review_list, names=names, len=len(names), description=description)
 
 
@@ -252,7 +324,6 @@ def favorites():
         return render_template('favorites.html')
     session['email']=email
     table = get_table('UserInfo')
-    #print(email)
     response = table.get_item(
         Key={
             'email': email,
@@ -271,7 +342,6 @@ def favorites():
             })
         temp0=response0['Item']
         fav_names.append(temp0['name']+": "+temp0['description'])
-        #print(fav_names)
     grid = []
     count = 0
     row = []
@@ -289,12 +359,18 @@ def favorites():
         count += 1
     grid.append(row)
     names.append(name)
-    #print(grid)
     len1=len(grid)-1
     len2=len(grid[-1])
-    #print(len1)
-    #print(len2)
-    return render_template('favorites.html', description=names ,grid=grid, len1=len1, len2=len2)
+
+    # To check if logged in
+    email = session.pop("email", "")
+    if email == "":
+        return render_template('favorites.html', description=names, grid=grid, len1=len1, len2=len2)
+    session['email'] = email
+
+    temp = response['Item']
+    user = temp['name']
+    return render_template('favorites.html', description=names ,grid=grid, len1=len1, len2=len2, user=user)
 
 
 

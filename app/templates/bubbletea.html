@@ -37,9 +37,13 @@
         <!--<button class="btn btn-outline-secondary" type="submit" style="float: right">Logout</button>-->
     <!--</form>-->
         <ul class="nav navbar-nav navbar-right">
+            {% if user == null %}
             <li><a href="signup">Sign Up</a></li>
             <li><a href="login">Login</a></li>
+            {%else%}
+            <li><a href="#" style="font-weight:bold">Welcome, {{user}}</a></li>
             <li><a href="logout">Logout</a></li>
+            {% endif %}
             <li><a href="#"> </a></li>
         </ul>
     </nav>
