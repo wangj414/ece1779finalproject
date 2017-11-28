@@ -1,3 +1,4 @@
+import datetime
 from werkzeug.utils import redirect
 
 from app import webapp
@@ -146,18 +147,21 @@ def detail():
 
     review_list=[]
     names=[]
+    times=[]
+    for i in reversed(reviews):
+        temp=i.split("/")
+        times.append(temp[0])
+        names.append(temp[1])
+        review_list.append(temp[2])
 
-    for key,value in reviews.items():
-        names.append(key)
-        review_list.append(value)
-
+    # Add description
     temp = response['Item']
     description = temp['longdescription']
 
     email = session.pop("email", "")
     if email == "":
         return render_template('detail.html', path=path, liked=False, reviews=review_list, names=names, len=len(names),
-                               description=description)
+                               description=description, times=times)
     session['email'] = email
     print(email)
     temp = response['Item']
@@ -168,7 +172,7 @@ def detail():
         liked = likes[email]
     else:
         liked=False
-    return render_template('detail.html', path=path, liked=liked, reviews=review_list, names=names, len=len(names), description=description)
+    return render_template('detail.html', path=path, liked=liked, reviews=review_list, names=names, len=len(names), description=description, times=times)
 
 
 @webapp.route('/detail/review',methods=['POST'])
@@ -189,7 +193,10 @@ def review():
     temp = response['Item']
     reviews = temp['reviews']
 
-    reviews[email]=review
+    time=datetime.datetime.now()
+
+    content=str(time)+"/"+email+"/"+review
+    reviews.append(content)
 
     response2 = table.update_item(
         Key={
