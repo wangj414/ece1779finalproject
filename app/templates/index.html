@@ -4,6 +4,13 @@
   <title>Yammme</title>
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <style type="text/css">
+
+    .top_title{
+    text-align: left
+    font-size: 300%;
+    font-family: 'Pacifico', cursive;
+    }
+
     .text{
     text-align: center;
     text-indent: 50px;
@@ -105,5 +112,24 @@ body, html{
 <div class="container">
 <figcaption class="text describe">"Welcome to Yammme"</figcaption>
 </div>
+
+
+     <div class="container">
+         <figcaption class="text top_title">"Top three restaurant"</figcaption>
+    <div class="row">
+      {% for i in range(3) %}
+      <p> <div class="col-lg-4">
+         <a href="/detail?info={{top[i]}}">
+            <div class="thumbnail">
+            <img src={{top[i]}} style="width:400px;height:400px">
+                <figcaption class="text">{{content[i]}}</figcaption>
+            </div>
+         </a>
+        </div> </p>
+        {% endfor %}
+        </div>
+</div>
+
+
      </div>
 </body>

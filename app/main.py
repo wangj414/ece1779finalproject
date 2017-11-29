@@ -1,4 +1,7 @@
+import collections
 import datetime
+import operator
+
 from werkzeug.utils import redirect
 
 from app import webapp
@@ -17,9 +20,51 @@ def get_table(table_name):
 @webapp.route('/',methods=['GET'])
 @webapp.route('/index', methods=['GET'])
 def index():
+    #Disploy the top three popular rastaurant
+    table0 = get_table('Desserts')
+    response0 = table0.scan()
+    comp={}
+    for i in response0['Items']:
+        count=0
+        restau=i['path']
+        likes=i['likes']
+        for key,value in likes.items():
+            if value==True:
+                count+=1
+        if count in comp.keys():
+            temp=comp[count]
+            res= temp+","+restau
+            comp[count]=res
+        else:
+            comp[count]=restau
+    sorted_comp = collections.OrderedDict(sorted(comp.items(), reverse=True))
+    top=[]
+    c=0
+    for key,value in sorted_comp.items():
+        if c==3:
+            break
+        ties=value.split(",")
+        for j in ties:
+            if c == 3:
+                break
+            top.append(j)
+            c+=1
+
+    # get the description of the top restaurant
+    content=[]
+    for path in top:
+        response1 = table0.get_item(
+            Key={
+                'path': path,
+            })
+        temp=response1['Item']
+        name=temp['name']
+        description=temp['description']
+        content.append(name+": "+description)
+    # Check login
     email = session.pop("email", "")
     if email == "":
-        return render_template('index.html')
+        return render_template('index.html', top=top, content=content)
     session['email'] = email
 
     table = get_table('UserInfo')
@@ -31,7 +76,7 @@ def index():
 
     temp = response['Item']
     user = temp['name']
-    return render_template('index.html', user=user)
+    return render_template('index.html', user=user, top=top, content=content)
 
 
 @webapp.route('/tea',methods=['GET'])
