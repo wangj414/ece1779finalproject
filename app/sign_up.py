@@ -18,7 +18,7 @@ def sign_up_page():
 
 
 
-@webapp.route('/signup/info', methods=['post'])
+@webapp.route('/signupinfo', methods=['post'])
 def signup():
     table = get_table('UserInfo')
     email = request.form.get('email', "")

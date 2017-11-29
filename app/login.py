@@ -16,7 +16,7 @@ def login_page():
 
 
 
-@webapp.route('/login/info', methods=['post'])
+@webapp.route('/logininfo', methods=['post'])
 def login():
 
     table = get_table('UserInfo')

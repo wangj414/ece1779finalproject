@@ -175,7 +175,7 @@ def detail():
     return render_template('detail.html', path=path, liked=liked, reviews=review_list, names=names, len=len(names), description=description, times=times)
 
 
-@webapp.route('/detail/review',methods=['POST'])
+@webapp.route('/review',methods=['POST'])
 def review():
     email = session.pop("email", "")
     if email == "":
@@ -211,7 +211,7 @@ def review():
     return redirect('/detail?info='+path)
 
 
-@webapp.route('/detail/favorite',methods=['POST'])
+@webapp.route('/favorite',methods=['POST'])
 def favorite():
     favorite = request.form['button1']
     email = session.pop("email", "")
@@ -269,7 +269,7 @@ def favorite():
 
 
 
-@webapp.route('/detail/disfavorite',methods=['POST'])
+@webapp.route('/disfavorite',methods=['POST'])
 def disfavorite():
     disfavorite = request.form['button2']
     email = session.pop("email", "")
